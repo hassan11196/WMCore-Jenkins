@@ -3,10 +3,6 @@ pipeline {
         label 'cms-dmwm-el9'
     }
 
-    options {
-        timeout(time: 30, unit: 'MINUTES')
-    }
-
     stages {
         stage('Matrix') {
             matrix {
@@ -18,6 +14,9 @@ pipeline {
                 }
                 stages {
                     stage('Setup and run a slice') {
+                        options {
+                            timeout(time: 30, unit: 'MINUTES')
+                        }
                         environment {
                             MY_HOSTNAME = """${sh(
                                 returnStdout: true,
